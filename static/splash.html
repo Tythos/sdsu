@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tornado-Based SDSU - Splash</title>
+        <meta charset="utf-8"/>
+        <style>
+            body {
+                background-color: #fff;
+                color: #000;
+                font-family: monospace;
+            }
+
+            #errorMessage {
+                color: #f00;
+            }
+        </style>
+        <script type="text/javascript">
+            function onWindowLoad(event) {
+                var hash = window.location.hash.replace(/^#/, "").trim();
+                if (hash.length > 0) {
+                    var errorMessage = document.querySelector("#errorMessage");
+                    errorMessage.textContent = "Login failed";
+                }
+            }
+
+            window.addEventListener("load", onWindowLoad);
+        </script>
+    </head>
+    <body>
+        <div id="errorMessage"></div>
+        <form action="/splash" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Email: </td>
+                        <td><input type="text" name="email"/></td>
+                    </tr>
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" name="password"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Sign In"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </body>
+</html>
