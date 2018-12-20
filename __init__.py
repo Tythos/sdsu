@@ -132,7 +132,14 @@ class WssHandler(websocket.WebSocketHandler, BaseHandler):
 
     @web.authenticated
     def open(self):
-        """Invoked when secure WebSocket is opened. Authenticated.
+        """Invoked when secure WebSocket is opened. Authenticated. Forwards to
+           method *on_open()* for more consistent method naming.
+        """
+        self.on_open()
+
+    def on_open(self):
+        """Mirrors (invoked by) *open()* for more consistent method naming by
+           user subclasses.
         """
         print("WebSocket opened")
 
@@ -211,7 +218,6 @@ def main(staticRoot=None, securityRoot=None, wssHandlerCls=None):
        the SSL context defined in *getSslCtx()*.
     """
     global CREDENTIALER, STATIC_ROOT, SECURITY_ROOT, WSS_HANDLER_CLS
-    CREDENTIALER = Credentialer()
     if staticRoot is not None:
         STATIC_ROOT = staticRoot
     if securityRoot is not None:
@@ -220,6 +226,7 @@ def main(staticRoot=None, securityRoot=None, wssHandlerCls=None):
         WSS_HANDLER_CLS = wssHandlerCls
     if WSS_HANDLER_CLS is None:
         WSS_HANDLER_CLS = WssHandler
+    CREDENTIALER = Credentialer()
     settings = {
         "static_path": STATIC_ROOT,
         "cookie_secret": "nanxuan subverse virginiasr gclark worklab".replace(" ", "_").upper(),
